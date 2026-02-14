@@ -1,5 +1,6 @@
 # import socket module
 from socket import *
+
 # In order to terminate the program
 import sys
 
@@ -22,12 +23,12 @@ def webServer(port=13331):
     connectionSocket, addr = serverSocket.accept() #Fill in start -are you accepting connections?     #Fill in end
     
     try:
-      message = connectionSocket.recv(1024) #Fill in start -a client is sending you a message   #Fill in end
+      message = connectionSocket.recv(1024).decode() #Fill in start -a client is sending you a message   #Fill in end
       filename = message.split()[1]
       
       #opens the client requested file. 
       #Plenty of guidance online on how to open and read a file in python. How should you read it though if you plan on sending it through a socket?
-      f = open(filename[1:],  "rb")    #fill in start    "rb"          #fill in end
+      f = open(filename[1:],  "r")    #fill in start    "rb"          #fill in end
       
       
 
@@ -48,7 +49,7 @@ def webServer(port=13331):
       for i in f: #for line in file
         head += i
       #Fill in start - append your html file contents #Fill in end 
-        connectionSocket.send(head)
+      connectionSocket.send(head)
       #Send the content of the requested file to the client (don't forget the headers you created)!
       #Send everything as one send command, do not send one line/item at a time!
 
@@ -57,7 +58,7 @@ def webServer(port=13331):
 
       # Fill in end
         
-    connectionSocket.close() #closing the connection socket
+      connectionSocket.close() #closing the connection socket
       
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
@@ -87,4 +88,3 @@ def webServer(port=13331):
 
 if __name__ == "__main__":
   webServer(13331)
-
