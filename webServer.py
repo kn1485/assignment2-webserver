@@ -57,7 +57,7 @@ def webServer(port=13331):
 
       # Fill in end
         
-      connectionSocket.close() #closing the connection socket
+    connectionSocket.close() #closing the connection socket
       
     except Exception as e:
       # Send response message for invalid request due to the file not being found (404)
@@ -87,3 +87,4 @@ def webServer(port=13331):
 
 if __name__ == "__main__":
   webServer(13331)
+
